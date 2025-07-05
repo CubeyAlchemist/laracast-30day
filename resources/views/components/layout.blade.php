@@ -8,6 +8,13 @@
     <title>Home Page</title>
 </head>
 <body>
-    <h1>This is the Home Page</h1>
+    <nav>
+        <x-nav-link>Home</x-nav-link>
+        <x-nav-link>About</x-nav-link>
+        <x-nav-link>Contact</x-nav-link>
+        <x-nav-link>Teams</x-nav-link>
+    </nav>
+
+    {{ $slot }}
 </body>
 </html>
