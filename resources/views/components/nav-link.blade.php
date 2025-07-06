@@ -15,15 +15,15 @@
 </a>
 -->
 
-<!-- Ver 4: Using Props for extra control. This now requires URL to be set in Layout and is no longer as dynamic.
+<!-- Ver 4: Using Props for extra control. This now requires URL to be set in Layout and is no longer as dynamic. -->
 <a class="{{ $active ? 'bg-gray-900 text-white': 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium" 
     aria-current="{{ $active ? 'page': 'false' }}" 
     {{ $attributes }}>
     {{ $slot }}
 </a>
--->
 
-<!-- Ver 5: Homework on P5 requiring using 'type' prop for Anchor vs Button. Buttons non functional.-->
+
+<!-- Ver 5: Homework on P5 requiring using 'type' prop for Anchor vs Button. Buttons non functional.
 @if($type == 'a')
     <a class="{{ $active ? 'bg-gray-900 text-white': 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium" 
             aria-current="{{ $active ? 'page': 'false' }}" 
@@ -37,3 +37,4 @@
             {{ $slot }}
     </button>
 @endif
+-->
