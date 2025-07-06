@@ -8,6 +8,7 @@ Route::get('/', function() {
         'greeting' => 'Hello'
     ]);
 });
+
 // Can return same views from multiple get requests
 Route::get('/home', function () {
     return view('home');
@@ -23,13 +24,27 @@ Route::get('/contact', function() {
 
 Route::get('/jobs', function() {
     $jobs = Job::with('employer')->simplePaginate(3);
-    return view('jobs', [
+    return view('jobs.index', [
         'jobs' => $jobs
     ]);
 });
 
+Route::get('/jobs/create', function() { 
+    return view('jobs.create');
+});
+
+// Note: Wildcards like '{id}' should appear after other explicit routes. Routes are processed in line-order.
 Route::get('/jobs/{id}', function($id) {
     $job = Job::find($id);
-    // Laravel reports it cannot find 'job' view, despite existing, and working as expected.
-    return view ('job', ['job' => $job]);
+    return view ('jobs.show', ['job' => $job]);
 }); 
+
+Route::post('/jobs', function(){
+    // Currently assumes valid input
+    Job::create([
+        'title' => request('title'),
+        'salary' => request('salary'),
+        'employer_id' => 1
+    ]);
+    return redirect('/jobs');
+});
