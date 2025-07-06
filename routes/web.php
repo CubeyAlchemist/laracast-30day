@@ -32,4 +32,4 @@ Route::get('/jobs/{id}', function($id) {
     $job = Job::find($id);
     // Laravel reports it cannot find 'job' view, despite existing, and working as expected.
     return view ('job', ['job' => $job]);
-});
+}); 
