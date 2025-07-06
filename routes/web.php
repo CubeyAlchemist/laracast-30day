@@ -23,7 +23,7 @@ Route::get('/contact', function() {
 });
 
 Route::get('/jobs', function() {
-    $jobs = Job::with('employer')->simplePaginate(3);
+    $jobs = Job::with('employer')->latest()->simplePaginate(5);
     return view('jobs.index', [
         'jobs' => $jobs
     ]);
@@ -40,7 +40,13 @@ Route::get('/jobs/{id}', function($id) {
 }); 
 
 Route::post('/jobs', function(){
-    // Currently assumes valid input
+    // Validate inputs. On fail, automatically returns to form page and sends info on errors.
+    request()->validate([
+        'title' => ['required', 'min:3'],
+        'salary' => ['required']
+    ]);
+
+    // Only runs if validation was successful.
     Job::create([
         'title' => request('title'),
         'salary' => request('salary'),
