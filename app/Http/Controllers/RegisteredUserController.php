@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class RegisteredUserController extends Controller
@@ -14,20 +16,17 @@ class RegisteredUserController extends Controller
 
     public function store()
     {
-        // // Validate inputs. On fail, automatically returns to form page and sends info on errors.
-        // request()->validate([
-        //     'first_name' => ['required'],
-        //     'last_name' => ['required'],
-        //     'email' => ['required', 'email'],
-        //     'password' => ['required', 'min:8', '']
-        // ]);
+        $validatedAttributes = request()->validate([
+            'first_name'    => ['required'],
+            'last_name'     => ['required'],
+            'email'         => ['required', 'email'],
+            'password'      => ['required', Password::min(8), 'confirmed']
+        ]);
 
-        // // Only runs if validation was successful.
-        // Job::create([
-        //     'title' => request('title'),
-        //     'salary' => request('salary'),
-        //     'employer_id' => 1
-        // ]);
-        return redirect('/');
+        $user = User::create($validatedAttributes);
+
+        Auth::login($user);
+
+        return redirect('/jobs');
     }
 }
